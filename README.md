@@ -2,7 +2,9 @@
 
 ##Installation
 
-TODO
+```py
+!pip install -i https://test.pypi.org/simple/ lfr-lambdata-pt5
+```
 
 ## Usage
 
