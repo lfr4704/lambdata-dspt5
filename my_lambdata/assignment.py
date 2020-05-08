@@ -8,6 +8,16 @@ def add_state_name(my_df):
     # TODO: add a column of corresponding state names
     # dic with abbrev/ name mappings
     # create a new column that is copy of the first, but mapped with the names
+    """
+    Adds a column of state name to accompnay a corresponding column
+    of state abbreviations
+
+    Params:
+        my_df (pandas.DataFrame) has a column called abbrev with state abbreviations
+
+    Returns:
+        copy of the original dataframe, with another column
+    """
 
     new_df = my_df.copy()
     names_map = {"CA": "California", "CO": "Colorado", "CT":"Conneticut"}
