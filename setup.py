@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="lfr-lambdata-pt5", # the name that you will install via pip
-    version="1.0",
+    version="1.1",
     author="Luis Robles",
     author_email="lfr4704@gmail.com",
     description="My first python package",
