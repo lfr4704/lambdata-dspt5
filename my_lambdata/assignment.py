@@ -2,6 +2,7 @@
 #(Handle Washington DC and territories like Puerto Rico etc.)
 
 from pandas import DataFrame
+import pandas as pd
 
 
 def add_state_name(my_df):
@@ -73,6 +74,26 @@ def add_state_name(my_df):
     new_df['state_name'] = new_df["abbrev"].map(names_map)
     return new_df
 
+def split_timestamp(some_df):
+    """
+    This function splits dates ("MM/DD/YYYY", etc.) into multiple columns
+
+    Params:
+        some_df (pandas.DataFrame) has a column called timestamp with dates in object datatype
+
+    Returns:
+        copy of the original dataframe, with three new columsn one for year, month, and day.
+
+    """
+    new_some_df = some_df.copy()
+
+    new_some_df['timestamp'] = pd.to_datetime(new_some_df['timestamp'], infer_datetime_format=True)
+    new_some_df['year'] = new_some_df['timestamp'].dt.year
+    new_some_df['month'] = new_some_df['timestamp'].dt.month
+    new_some_df['day'] = new_some_df['timestamp'].dt.day
+    return new_some_df
+
+
 if __name__ == "__main__":
 
     df = DataFrame({"abbrev": ["CA", "CO", "CT", "DC", "TX"]})
@@ -80,3 +101,9 @@ if __name__ == "__main__":
 
     df2 = add_state_name(df)
     print(df2.head())
+
+    df3 = DataFrame({"timestamp":["2010-01-04", "2012-05-04", "2008-11-02"]})
+    print(df3.head())
+
+    df4 = split_timestamp(df3)
+    print(df4.head())
