@@ -74,7 +74,7 @@ def add_state_name(my_df):
     new_df['state_name'] = new_df["abbrev"].map(names_map)
     return new_df
 
-def split_timestamp(some_df):
+def split_timestamp(some_df, column):
     """
     This function splits dates ("MM/DD/YYYY", etc.) into multiple columns
 
@@ -87,10 +87,11 @@ def split_timestamp(some_df):
     """
     new_some_df = some_df.copy()
 
-    new_some_df['timestamp'] = pd.to_datetime(new_some_df['timestamp'], infer_datetime_format=True)
-    new_some_df['year'] = new_some_df['timestamp'].dt.year
-    new_some_df['month'] = new_some_df['timestamp'].dt.month
-    new_some_df['day'] = new_some_df['timestamp'].dt.day
+    new_some_df[column] = pd.to_datetime(new_some_df[column], infer_datetime_format=True)
+    new_some_df['year'] = new_some_df[column].dt.year
+    new_some_df['month'] = new_some_df[column].dt.month
+    new_some_df['day'] = new_some_df[column].dt.day
+    new_some_df = new_some_df.drop(columns = column)
     return new_some_df
 
 class SplitTimestamp():
@@ -119,7 +120,7 @@ if __name__ == "__main__":
     df3 = DataFrame({"timestamp":["2010-01-04", "2012-05-04", "2008-11-02"]})
     print(df3.head())
 
-    df4 = split_timestamp(df3)
+    df4 = split_timestamp(df3, "timestamp")
     print(df4.head())
 
 
