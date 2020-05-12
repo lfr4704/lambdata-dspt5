@@ -4,9 +4,7 @@
 from pandas import DataFrame
 import pandas as pd
 
-class DataProcessor():
-    def __init__(self, my_df):  # this is a constructor
-        self.my_df = my_df
+class MyFrame(DataFrame):
 
     def add_state_name(self):
         """
@@ -72,64 +70,15 @@ class DataProcessor():
         "GU": "GUAM",
         "PR": "PUERTO RICO",
         "VI": "VIRGIN ISLANDS"}
-        self.my_df['state_name'] = self.my_df["abbrev"].map(names_map)
-        return self.my_df
+        self['state_name'] = self["abbrev"].map(names_map)
 
-
-def split_timestamp(some_df, column):
-    """
-    This function splits dates ("MM/DD/YYYY", etc.) into multiple columns
-
-    Params:
-        some_df (pandas.DataFrame) has a column called timestamp with dates in object datatype
-
-    Returns:
-        copy of the original dataframe, with three new columsn one for year, month, and day.
-
-    """
-    new_some_df = some_df.copy()
-
-    new_some_df[column] = pd.to_datetime(new_some_df[column], infer_datetime_format=True)
-    new_some_df['year'] = new_some_df[column].dt.year
-    new_some_df['month'] = new_some_df[column].dt.month
-    new_some_df['day'] = new_some_df[column].dt.day
-    new_some_df = new_some_df.drop(columns = column)
-    return new_some_df
-
-class SplitTimestamp():
-    #how to implement a class.
-    #create a class that would generate additional number of columns
-    #include hour, minutes, seconds in addtion to year, month and day
-
-    """docstring fo SplitTimestamp."""
-
-    def __init__(self, date):
-        self.date = date
-
-
-    def split_date(self):
-        separated = self.date.split("-")
-        return separated
 
 
 if __name__ == "__main__":
 
-    df = DataFrame({"abbrev": ["CA", "CO", "CT", "DC", "TX"]})
+    my_frame = MyFrame({"abbrev": ["CA", "CO", "CT", "DC", "TX"]})
+    print(my_frame.columns)
+    print(my_frame.head())
 
-    processor = DataProcessor(df)
-    print(processor.my_df.head())
-
-    processor.add_state_name()
-    print(df.head())
-
-
-    df3 = DataFrame({"timestamp":["2010-01-04", "2012-05-04", "2008-11-02"]})
-    print(df3.head())
-
-    df4 = split_timestamp(df3, "timestamp")
-    print(df4.head())
-
-
-    #class test code below
-    date_ex = SplitTimestamp("12-01-05")
-    print(date_ex.date)
+    my_frame.add_state_name()
+    print(my_frame.head())
