@@ -106,7 +106,8 @@ class SplitTimestamp():
 
 
     def split_date(self):
-        return self.date.split("-")
+        separated = self.date.split("-")
+        return separated
 
 
 if __name__ == "__main__":
