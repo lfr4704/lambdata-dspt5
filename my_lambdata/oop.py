@@ -71,7 +71,7 @@ class DataSepartor(DataFrame):
     This function splits dates ("MM/DD/YYYY", etc.) into multiple columns
     """
 
-    def split_timestamp(self, column_name, *kwa):
+    def split_timestamp(self, column_name):
         self[column_name] = pd.to_datetime(self[column_name], infer_datetime_format=True)
         self['year'] = self[column_name].dt.year
         self['month'] = self[column_name].dt.month
@@ -94,3 +94,9 @@ if __name__ == "__main__":
 
     my_other_frame.split_timestamp(column_name="timestamp")
     print(my_other_frame.head())
+
+    my_other_frame2 = DataSepartor({"timestamp":["Tue Aug 17 21:31:00 1987","Tue Aug 16 21:30:09 1988","Tue Aug 19 22:30:00 1968"]})
+    print(my_other_frame2.head())
+
+    my_other_frame2.split_timestamp(column_name="timestamp")
+    print(my_other_frame2.head())
