@@ -10,12 +10,6 @@ class MyFrame(DataFrame): # Inheritance approach
         """
         Adds a column of state name to accompnay a corresponding column
         of state abbreviations
-
-        Params:
-            my_df (pandas.DataFrame) has a column called abbrev with state abbreviations
-
-        Returns:
-            copy of the original dataframe, with another column
         """
         names_map = {"AL": "ALABAMA",
         "AK": "ALASKA",
@@ -73,15 +67,16 @@ class MyFrame(DataFrame): # Inheritance approach
         self['state_name'] = self["abbrev"].map(names_map)
 
 class DataSepartor(DataFrame):
-    """docstring for DataSepartor."""
+    """
+    This function splits dates ("MM/DD/YYYY", etc.) into multiple columns
+    """
 
-    def split_timestamp(self):
-        self["timestamp"] = pd.to_datetime(self["timestamp"], infer_datetime_format=True)
-        self['year'] = self["timestamp"].dt.year
-        self['month'] = self["timestamp"].dt.month
-        self['day'] = self["timestamp"].dt.day
-        self = self.drop(columns = ["timestamp"])
-
+    def split_timestamp(self, column_name, *kwa):
+        self[column_name] = pd.to_datetime(self[column_name], infer_datetime_format=True)
+        self['year'] = self[column_name].dt.year
+        self['month'] = self[column_name].dt.month
+        self['day'] = self[column_name].dt.day
+        self = self.drop(columns = [column_name])
 
 
 if __name__ == "__main__":
@@ -95,8 +90,7 @@ if __name__ == "__main__":
 
     # second class test functions
     my_other_frame = DataSepartor({"timestamp":["2010-01-04","2012-05-04","2008-11-02"]})
-
     print(my_other_frame.head())
 
-    my_other_frame.split_timestamp()
+    my_other_frame.split_timestamp(column_name="timestamp")
     print(my_other_frame.head())
