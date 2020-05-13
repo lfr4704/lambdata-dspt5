@@ -4,7 +4,7 @@
 from pandas import DataFrame
 import pandas as pd
 
-class MyFrame(DataFrame):
+class MyFrame(DataFrame): # Inheritance approach
 
     def add_state_name(self):
         """
@@ -72,6 +72,16 @@ class MyFrame(DataFrame):
         "VI": "VIRGIN ISLANDS"}
         self['state_name'] = self["abbrev"].map(names_map)
 
+class DataSepartor(DataFrame):
+    """docstring for DataSepartor."""
+
+    def split_timestamp(self):
+        self["timestamp"] = pd.to_datetime(self["timestamp"], infer_datetime_format=True)
+        self['year'] = self["timestamp"].dt.year
+        self['month'] = self["timestamp"].dt.month
+        self['day'] = self["timestamp"].dt.day
+        self = self.drop(columns = ["timestamp"])
+
 
 
 if __name__ == "__main__":
@@ -82,3 +92,11 @@ if __name__ == "__main__":
 
     my_frame.add_state_name()
     print(my_frame.head())
+
+    # second class test functions
+    my_other_frame = DataSepartor({"timestamp":["2010-01-04","2012-05-04","2008-11-02"]})
+
+    print(my_other_frame.head())
+
+    my_other_frame.split_timestamp()
+    print(my_other_frame.head())

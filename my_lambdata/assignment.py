@@ -94,21 +94,6 @@ def split_timestamp(some_df, column):
     new_some_df = new_some_df.drop(columns = column)
     return new_some_df
 
-class SplitTimestamp():
-    #how to implement a class.
-    #create a class that would generate additional number of columns
-    #include hour, minutes, seconds in addtion to year, month and day
-
-    """docstring fo SplitTimestamp."""
-
-    def __init__(self, date):
-        self.date = date
-
-
-    def split_date(self):
-        separated = self.date.split("-")
-        return separated
-
 
 if __name__ == "__main__":
 
@@ -123,8 +108,3 @@ if __name__ == "__main__":
 
     df4 = split_timestamp(df3, "timestamp")
     print(df4.head())
-
-
-    #class test code below
-    date_ex = SplitTimestamp("12-01-05")
-    print(date_ex.date)
