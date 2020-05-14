@@ -5,7 +5,7 @@ from pandas import DataFrame
 class TestAssignment(unittest.TestCase):
 
     def test_add_state_name(self):
-        df = DataFrame({"abbrev": ["CA", "CO", "CT", "DC", "TX"]})
+        df = DataFrame({"abbrev": ["AL", "AK", "AZ", "AR", "CA"]})
         self.assertEqual(list(df.columns), ['abbrev'])
 
         result = add_state_name(df)
