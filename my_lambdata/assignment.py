@@ -20,8 +20,8 @@ def add_state_name(my_df):
     new_df = my_df.copy()
     names_map = {"AL": "ALABAMA",
     "AK": "ALASKA",
-    "AZ": "ARIZONA",
     "AR": "ARKANSAS",
+    "AZ": "ARIZONA",
     "CA": "CALIFORNIA",
     "CO": "COLORADO",
     "CT": "CONNECTICUT",
